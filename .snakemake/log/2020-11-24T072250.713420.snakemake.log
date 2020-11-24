@@ -1,0 +1,20 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	hierarchical_heatmap
+	1
+Select jobs to execute...
+
+[Tue Nov 24 07:22:50 2020]
+rule hierarchical_heatmap:
+    input: results/cube.csv, results/communities.npy
+    output: results/heatmap.png
+    jobid: 0
+
+[Tue Nov 24 07:22:53 2020]
+Finished job 0.
+1 of 1 steps (100%) done
+Complete log: /home/erlee/Cluster-Viz/.snakemake/log/2020-11-24T072250.713420.snakemake.log

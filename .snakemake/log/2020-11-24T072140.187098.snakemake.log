@@ -1,0 +1,33 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	hierarchical_heatmap
+	1
+Select jobs to execute...
+
+[Tue Nov 24 07:21:40 2020]
+rule hierarchical_heatmap:
+    input: results/cube.csv, results/communities.npy
+    output: results/heatmap.png
+    jobid: 0
+
+[Tue Nov 24 07:21:40 2020]
+Error in rule hierarchical_heatmap:
+    jobid: 0
+    output: results/heatmap.png
+
+RuleException:
+CalledProcessError in line 40 of /home/erlee/Cluster-Viz/Snakefile:
+Command 'set -euo pipefail;  /home/erlee/miniconda3/envs/cluster/bin/python3.8 /home/erlee/Cluster-Viz/.snakemake/scripts/tmptccr2yyk.hierarchical_heatmap.py' returned non-zero exit status 1.
+  File "/home/erlee/miniconda3/envs/cluster/lib/python3.8/site-packages/snakemake/executors/__init__.py", line 2273, in run_wrapper
+  File "/home/erlee/Cluster-Viz/Snakefile", line 40, in __rule_hierarchical_heatmap
+  File "/home/erlee/miniconda3/envs/cluster/lib/python3.8/site-packages/snakemake/executors/__init__.py", line 560, in _callback
+  File "/home/erlee/miniconda3/envs/cluster/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+  File "/home/erlee/miniconda3/envs/cluster/lib/python3.8/site-packages/snakemake/executors/__init__.py", line 546, in cached_or_run
+  File "/home/erlee/miniconda3/envs/cluster/lib/python3.8/site-packages/snakemake/executors/__init__.py", line 2304, in run_wrapper
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/erlee/Cluster-Viz/.snakemake/log/2020-11-24T072140.187098.snakemake.log

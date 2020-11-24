@@ -1,0 +1,57 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	community_clustering
+	1	data_extraction
+	1	hierarchical_heatmap
+	3
+Select jobs to execute...
+
+[Tue Nov 24 05:53:59 2020]
+rule data_extraction:
+    input: data/out.csv
+    output: results/expression_matrix.npy, results/location_matrix.npy, results/axis_matrix.npy
+    jobid: 1
+
+[Tue Nov 24 05:53:59 2020]
+Finished job 1.
+1 of 3 steps (33%) done
+Select jobs to execute...
+
+[Tue Nov 24 05:53:59 2020]
+rule community_clustering:
+    input: results/expression_matrix.npy
+    output: results/communities.npy
+    jobid: 2
+
+[Tue Nov 24 05:54:05 2020]
+Finished job 2.
+2 of 3 steps (67%) done
+Select jobs to execute...
+
+[Tue Nov 24 05:54:05 2020]
+rule hierarchical_heatmap:
+    input: results/expression_matrix.npy, results/communities.npy, data/column_names.csv
+    output: results/heatmap.png
+    jobid: 0
+
+[Tue Nov 24 05:54:05 2020]
+Error in rule hierarchical_heatmap:
+    jobid: 0
+    output: results/heatmap.png
+
+RuleException:
+CalledProcessError in line 39 of /home/erlee/Cluster-Viz/Snakefile:
+Command 'set -euo pipefail;  /home/erlee/miniconda3/envs/cluster/bin/python3.8 /home/erlee/Cluster-Viz/.snakemake/scripts/tmp1fj2a8_q.hierarchical_heatmap.py' returned non-zero exit status 1.
+  File "/home/erlee/miniconda3/envs/cluster/lib/python3.8/site-packages/snakemake/executors/__init__.py", line 2273, in run_wrapper
+  File "/home/erlee/Cluster-Viz/Snakefile", line 39, in __rule_hierarchical_heatmap
+  File "/home/erlee/miniconda3/envs/cluster/lib/python3.8/site-packages/snakemake/executors/__init__.py", line 560, in _callback
+  File "/home/erlee/miniconda3/envs/cluster/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+  File "/home/erlee/miniconda3/envs/cluster/lib/python3.8/site-packages/snakemake/executors/__init__.py", line 546, in cached_or_run
+  File "/home/erlee/miniconda3/envs/cluster/lib/python3.8/site-packages/snakemake/executors/__init__.py", line 2304, in run_wrapper
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/erlee/Cluster-Viz/.snakemake/log/2020-11-24T055358.988008.snakemake.log

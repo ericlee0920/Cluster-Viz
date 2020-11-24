@@ -1,0 +1,33 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	preprocess
+	1
+Select jobs to execute...
+
+[Fri Nov 20 08:26:23 2020]
+rule preprocess:
+    input: data/out.csv
+    output: expression_matrix.npy, location_matrix.npy, axis_matrix.npy
+    jobid: 0
+
+[Fri Nov 20 08:26:25 2020]
+Error in rule preprocess:
+    jobid: 0
+    output: expression_matrix.npy, location_matrix.npy, axis_matrix.npy
+
+RuleException:
+CalledProcessError in line 9 of /home/erlee/Cluster-Viz/Snakefile:
+Command 'set -euo pipefail;  /home/erlee/miniconda3/envs/cluster/bin/python3.8 /home/erlee/Cluster-Viz/.snakemake/scripts/tmpfnmhbdvk.preprocessing.py' returned non-zero exit status 1.
+  File "/home/erlee/miniconda3/envs/cluster/lib/python3.8/site-packages/snakemake/executors/__init__.py", line 2273, in run_wrapper
+  File "/home/erlee/Cluster-Viz/Snakefile", line 9, in __rule_preprocess
+  File "/home/erlee/miniconda3/envs/cluster/lib/python3.8/site-packages/snakemake/executors/__init__.py", line 560, in _callback
+  File "/home/erlee/miniconda3/envs/cluster/lib/python3.8/concurrent/futures/thread.py", line 57, in run
+  File "/home/erlee/miniconda3/envs/cluster/lib/python3.8/site-packages/snakemake/executors/__init__.py", line 546, in cached_or_run
+  File "/home/erlee/miniconda3/envs/cluster/lib/python3.8/site-packages/snakemake/executors/__init__.py", line 2304, in run_wrapper
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: /home/erlee/Cluster-Viz/.snakemake/log/2020-11-20T082623.047869.snakemake.log

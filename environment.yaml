@@ -1,0 +1,18 @@
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - snakemake-minimal
+  - jinja2
+  - networkx
+  - matplotlib
+  - graphviz
+  - numpy
+  - pandas
+  - scipy
+  - seaborn
+  - numba
+  - pip
+  - pip:
+    - Phenograph
+

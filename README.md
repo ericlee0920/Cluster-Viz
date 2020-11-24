@@ -9,11 +9,31 @@ This pipeline performs clustering on high dimensional expression single-cell dat
 
 
 ### Usage
-•	Installation (if necessary) including any datasets that are to be used if they are not provided (i.e. how to download them using wget or curl – exact paths need to be specified and the data must be accessible)
-•	Exact step by step usage with descriptive comments on what action is being performed in each step
+The execution of the following files requires  a Linux/Unix-like OS. If you are using Windows, please make sure you are setting up a VM.
 
+1. Clone this file in a proper directory. This will download all the files and datasets necessary for execution. The output will be a folder named "Cluster-Viz".
 ```
-pip install PhenoGraph
+git clone https://github.com/ericlee0920/Cluster-Viz.git
+```
+2. Create an environment with all the dependencies. This will manage all the packages under the same collection for execution.
+```
+conda env create --name cluster --file environment.yaml
+```
+3. Activate the environment.
+```
+conda activate cluster
+```
+4. Generate a neighbor graph of single cells in a sample by executing:
+```
+snakemake -cores 10 nb_graph.png
+```
+5. Generate a hierarchical heatmap of total expression data by executing: 
+```
+snakemake -cores 10 heatmap.png
+```
+6. Generate a DAG from the workflow:
+```
+snakemake --dag {file} | dot -Tsvg > dag.svg
 ```
 
 ### Input

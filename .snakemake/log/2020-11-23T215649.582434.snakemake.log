@@ -1,0 +1,20 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job counts:
+	count	jobs
+	1	preprocess
+	1
+Select jobs to execute...
+
+[Mon Nov 23 21:56:50 2020]
+rule preprocess:
+    input: data/out.csv
+    output: expression_matrix.npy, location_matrix.npy, axis_matrix.npy
+    jobid: 0
+
+[Mon Nov 23 21:56:56 2020]
+Finished job 0.
+1 of 1 steps (100%) done
+Complete log: /home/erlee/Cluster-Viz/.snakemake/log/2020-11-23T215649.582434.snakemake.log
