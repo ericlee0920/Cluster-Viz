@@ -2,17 +2,17 @@ channels:
   - bioconda
   - conda-forge
 dependencies:
-  - snakemake-minimal
-  - jinja2
-  - networkx
-  - matplotlib
+  - snakemake-minimal = 5.29.0
+  - jinja2 = 2.11.2
+  - networkx >= 2.5
+  - matplotlib = 3.3.3
   - graphviz
-  - numpy
-  - pandas
-  - scipy
-  - seaborn
-  - numba
-  - pip
+  - numpy = 1.19.4
+  - pandas = 1.1.4
+  - scipy = 1.5.3
+  - seaborn = 0.11.0
+  - numba = 0.51.2
+  - pip = 20.2.4
   - pip:
-    - Phenograph
+          - Phenograph
 
