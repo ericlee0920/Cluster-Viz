@@ -34,7 +34,7 @@ def to_cluster_mean(data, labels):
         indexes = np.where(labels == i)[0]
         array_with_same_label = []
         for j in indexes:
-            array_with_same_label.append(data[i])
+            array_with_same_label.append(data[j])
         array_with_same_label = np.array(array_with_same_label)
         # find mean of each cluster
         cluster_mean[i] = array_with_same_label.mean(axis=0)

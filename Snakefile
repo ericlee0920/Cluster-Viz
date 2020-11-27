@@ -26,7 +26,8 @@ rule spatial_graph_and_edge_distribution:
     output:
         "results/neighbor_graph.png",
         "results/edge_distribution.png",
-        temp("results/cube.csv")
+        temp("results/cube.csv"),
+        "results/tSNE.png"
     script:
         "spatial_graph.py"
 

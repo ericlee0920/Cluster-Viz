@@ -79,9 +79,38 @@ def plot_neighbor_graph(neighbor_graph, location_matrix):
     # plot the neighbor graph
     pos = dict([i for i in enumerate(location_matrix)])
     node_color = list(nx.get_node_attributes(neighbor_graph, "label").values())
-    plt.figure(figsize=(30, 28))
+    # plt.figure(figsize=(30, 28))
     # Change the node_size here
-    nx.draw_networkx(neighbor_graph, node_color=node_color, pos=pos, with_labels=False)
+    nodeTypes = list(range(max(node_color)+1))
+    nodeTypeDict = {i: [] for i in nodeTypes}
+    np.random.seed(100)
+    colors = []
+    for i in nodeTypes:
+        colors.append('#%06X' % np.random.randint(0, 0xFFFFFF))
+    nodeColorDict = dict(zip(nodeTypes, colors))
+
+    for i in range(len(node_color)):
+        label_here = node_color[i]
+        nodeTypeDict[label_here].append(i)
+    nodePos = {}
+    for i in range(len(pos)):
+        nodePos[i] = (pos[i][0], pos[i][1])
+
+    fig, ax = plt.subplots(1, figsize=(16, 16))
+    for nt in nodeTypes:
+        nlist = nodeTypeDict[nt]
+        ncolor = nodeColorDict[nt]
+        nx.draw_networkx_nodes(neighbor_graph,
+                               pos=nodePos,
+                               ax=ax,
+                               node_color=ncolor,
+                               nodelist=nlist,
+                               label=nt,
+                               node_size=40
+                               )
+        nx.draw_networkx_edges(neighbor_graph, pos, width=1.5, alpha=0.5)
+    ax.legend(scatterpoints=1)
+    # nx.draw_networkx(neighbor_graph, node_color=node_color, pos=pos, with_labels=False, ax=ax)
 
 
 print("plotting spatial graph...")
@@ -93,6 +122,7 @@ labels = np.load(snakemake.input[3])
 # # neighbor_graph = get_neighbor_graph(location_matrix, labels)
 neighbor_graph = get_union_graph(location_matrix, labels, axis_matrix)
 plot_neighbor_graph(neighbor_graph, location_matrix)
+plt.legend()
 plt.title("Neighbor Graph of IMC")
 plt.savefig(snakemake.output[0])
 plt.show()
@@ -111,7 +141,7 @@ edges = edges.sort_values(by=['node1', 'node2'])
 edges["type"] = [str(edges.iloc[i, 0])+"-"+str(edges.iloc[i, 1]) for i in pair_number]
 print("Types of edges in your graph: {}".format(edges["type"].unique().shape[0]))
 
-print("graphing heatmap...")
+print("graphing edge distributions...")
 sns.set_theme(style="whitegrid")
 fig, ax = plt.subplots(figsize=(80, 30))
 sns.countplot(x="type", palette="ch:.25", ax=ax, data=edges)
@@ -122,3 +152,20 @@ plt.show()
 col_names = list(pd.read_csv(snakemake.input[4])["col_name"])
 cube = pd.DataFrame(data, columns=col_names)
 cube.to_csv(snakemake.output[2], index=False)
+
+#t-SNE
+print("forming tSNE...")
+from sklearn.manifold import TSNE
+from matplotlib import colors
+tsne_obj = TSNE(n_components=2, random_state=1).fit_transform(data)
+np.random.seed(100)
+nodeTypes = list(range(max(labels)+1))
+color = []
+for i in nodeTypes:
+    color.append('#%06X' % np.random.randint(0, 0xFFFFFF))
+fig, ax = plt.subplots(1, figsize=(16, 16))
+scatter = ax.scatter(tsne_obj[:, 0], tsne_obj[:, 1], c=labels, cmap=colors.ListedColormap(color))
+legend = ax.legend(*scatter.legend_elements(num=max(labels)+1), loc="lower left", title="Classes")
+ax.add_artist(legend)
+plt.savefig(snakemake.output[3])
+
