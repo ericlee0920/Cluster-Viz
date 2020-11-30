@@ -12,7 +12,7 @@ rule community_clustering:
     input:
         "results/expression_matrix.npy",
     output:
-        temp("results/communities.npy")
+        "results/communities.npy"
     script:
         "community_analysis.py"
 

@@ -125,9 +125,8 @@ plot_neighbor_graph(neighbor_graph, location_matrix)
 plt.legend()
 plt.title("Neighbor Graph of IMC")
 plt.savefig(snakemake.output[0])
-plt.show()
 
-
+# edge distributions
 pair_number = np.arange(neighbor_graph.number_of_edges())
 label_dict = dict(zip(pair_number, labels))
 edges = np.array(neighbor_graph.edges)
@@ -147,7 +146,6 @@ fig, ax = plt.subplots(figsize=(80, 30))
 sns.countplot(x="type", palette="ch:.25", ax=ax, data=edges)
 plt.title("Edge Distributions")
 plt.savefig(snakemake.output[1])
-plt.show()
 
 col_names = list(pd.read_csv(snakemake.input[4])["col_name"])
 cube = pd.DataFrame(data, columns=col_names)
